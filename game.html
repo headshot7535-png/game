@@ -150,7 +150,7 @@
       rpm:Math.floor(t.rpm*(0.9+Math.random()*0.2)), spread:t.spread, pellets:t.pellets||1, speed:t.speed, aoe:t.aoe||0,
       crit:0.05+Math.random()*0.15, critM:1.5+Math.random()*0.8,
       mag:t.n==='Shotgun'?6:(t.n==='Sniper'?5:(t.n==='Launcher'?3:(t.n==='SMG'?30:(t.n==='AR'?24:15)))),
-      reload:t.n==='Shotgun'?0.7:(t.n==='Sniper'?2.4:(t.n==='Launcher'?3.2:(t.n==='SMG'?1.6:(t.n==='AR'?2.0:1.4))) }
+      reload:t.n==='Shotgun'?0.7:(t.n==='Sniper'?2.4:(t.n==='Launcher'?3.2:(t.n==='SMG'?1.6:(t.n==='AR'?2.0:1.4)))) }
     w.maxMag=w.mag; w.upMult=1; return w;
   }
   const dps=(w)=>Math.round((w.dmg*w.upMult*(1+(w.crit*w.critM)))*(w.rpm/60)*w.pellets);
@@ -194,7 +194,7 @@
     modal.querySelector('#sfx').onchange=e=>{ sfxOn=e.target.checked; save(); };
     modal.querySelector('#shake').onchange=e=>{ shakeOn=e.target.checked; };
     modal.querySelector('#auto').onchange=e=>{ autoPickup=e.target.checked; };
-  });
+  }
 
   // Character, classes & talents
   const mods = { dmg:0, rof:0, lifesteal:0, dropPlus:0, shieldFlat:0, dmgRes:0, grenadeAoe:0, grenadeCD:1, dashMult:1, crit:0, spdMult:1 };
@@ -451,10 +451,10 @@
   }
 
   // Loop
+  let last=now();
   function startGame(){ applyTalents(); setWeaponUI(player.guns[player.slot-1], player.slot); spawnWave(); last=now(); requestAnimationFrame(step); }
   ensureProfile(startGame);
 
-  let last=now();
   function step(){
     if(paused){ draw(); requestAnimationFrame(step); return; }
     const t=now(), dt=Math.min(0.033, t-last); last=t;
